@@ -7,6 +7,9 @@ class Player:
         self.penalties = penalties
         self.team = team
         self.games = games
+        self.points = goals + assists
     
     def __str__(self):
-        return self.name + " team " + self.team + " goals " + str(self.goals) + " assists " + str(self.assists)
+        # Huom intit stringiksi
+        return f"{self.name:23}" + f"{self.team:4}" + f"{str(self.goals):2}" + " + " + f"{str(self.assists):2}" + " = " + str(self.points)
+        

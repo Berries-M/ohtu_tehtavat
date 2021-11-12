@@ -1,4 +1,5 @@
 from typing import Final
+from datetime import date
 import requests
 from player import Player
 
@@ -19,16 +20,21 @@ def main():
             player_dict['goals'],
             player_dict['penalties'],
             player_dict['team'],
-            player_dict['games']
-            
+            player_dict['games'],
         )
 
         if player_dict['nationality'] == "FIN":
             players.append(player)
 
-    print("Suomalaisten pelaajien saldot:")
+    # Lajitellaan pelaajat pisteiden mukaiseen järjestykseen.
+    sorted_players = sorted(players, key=lambda x: x.points, reverse=True)
 
-    for player in players:
+
+    today = date.today()
+    today2 = today.strftime("%d/%m/%Y")
+    print("Suomalaisten pelaajien saldot " + today2 + ":")
+
+    for player in sorted_players:
         print(player)
 
 if __name__ == "__main__":
