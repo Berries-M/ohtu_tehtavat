@@ -1,5 +1,7 @@
 from entities.user import User
-
+import re
+# debugattavaan tiedostoon tulee tuoda tarvittavat moduulit
+import sys, pdb
 
 class UserInputError(Exception):
     pass
@@ -14,6 +16,9 @@ class UserService:
         self._user_repository = user_repository
 
     def check_credentials(self, username, password):
+        # pysäytetään ohjelman suoritus tälle riville
+        # pdb.Pdb(stdout=sys.__stdout__).set_trace()
+
         if not username or not password:
             raise UserInputError("Username and password are required")
 
@@ -38,3 +43,17 @@ class UserService:
             raise UserInputError("Username and password are required")
 
         # toteuta loput tarkastukset tänne ja nosta virhe virhetilanteissa
+        sopiva_username = '^[a-z][a-z][a-z]+$'
+        sopiiko = re.match(sopiva_username, username)
+
+        if not sopiiko:
+            raise UserInputError("Not a valid username.")
+
+        sopiva_password = '^(?=.*[a-z])(?=.*[0-9]).{8,}$'
+        sopiikopw = re.match(sopiva_password, password)
+
+        if not sopiikopw:
+            raise UserInputError("Not a valid password.")
+            
+        
+            
