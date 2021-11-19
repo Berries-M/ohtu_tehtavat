@@ -25,7 +25,7 @@ Main Page Should Be Open
 Go To Login Page
     Go To  ${LOGIN URL}
 
-# Nämä 3 itse
+# Nämä 4 itse
 Go To Main Page
     Go To  ${HOME URL}
 
