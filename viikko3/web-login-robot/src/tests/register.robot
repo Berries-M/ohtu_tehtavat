@@ -33,6 +33,31 @@ Register With Nonmatching Password And Password Confirmation
     Click Button  Register
     Register Should Fail With Message  Password and confirmation don't match.
 
+Login After Successful Registration
+    Set Username  koira
+    Set Password  kiirulainen9
+    Confirm Password  kiirulainen9  
+    Click Button  Register
+    Welcome Page Should Be Open
+    Go To Login Page
+    Login Page Should Be Open
+    Set Username  koira
+    Set Password  kiirulainen9
+    Submit Credentials
+    Login Should Succeed
+
+Login After Failed Registration
+    Set Username  ko
+    Set Password  koorulainen9
+    Confirm Password  koorulainen9  
+    Click Button  Register
+    Go To Login Page
+    Login Page Should Be Open
+    Set Username  ko
+    Set Password  koorulainen9
+    Submit Credentials
+    Login Should Fail With Message  Invalid username or password
+
 *** Keywords ***
 Go To Register Page And Begin
     Go To Register Page
@@ -47,4 +72,3 @@ Register Should Fail With Message
     Page Should Contain  ${message}
 
 
-    

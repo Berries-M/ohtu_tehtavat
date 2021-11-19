@@ -25,7 +25,13 @@ Main Page Should Be Open
 Go To Login Page
     Go To  ${LOGIN URL}
 
-# Nämä 2 siirretty loginista
+# Nämä 5 siirretty loginista
+Login Should Succeed
+    Main Page Should Be Open
+
+Submit Credentials
+    Click Button  Login
+
 Set Username
     [Arguments]  ${username}
     Input Text  username  ${username}
@@ -33,6 +39,11 @@ Set Username
 Set Password
     [Arguments]  ${password}
     Input Password  password  ${password}
+
+Login Should Fail With Message
+    [Arguments]  ${message}
+    Login Page Should Be Open
+    Page Should Contain  ${message}
 
 # Nämä 6 itse
 Go To Main Page
