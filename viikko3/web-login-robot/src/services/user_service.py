@@ -1,8 +1,10 @@
+from typing import Mapping
 from entities.user import User
 from repositories.user_repository import (
     user_repository as default_user_repository
 )
-
+import re
+import string
 
 class UserInputError(Exception):
     pass
@@ -41,6 +43,28 @@ class UserService:
             raise UserInputError("Username and password are required")
 
         # toteuta loput tarkastukset tänne ja nosta virhe virhetilanteissa
+        
+        if not password_confirmation:
+            raise UserInputError("Password confirmation is required")
+
+        # Tämä uusi
+        if password != password_confirmation:
+            raise UserInputError("Password and confirmation don't match.")
+  
+        # Nämä tehtävästä 5
+        sopiva_username = '^[a-z][a-z][a-z]+$'
+        sopiiko = re.match(sopiva_username, username)
+
+        if not sopiiko:
+            raise UserInputError("Not a valid username.")
+
+        sopiva_password = '^(?=.*[a-z])(?=.*[0-9]).{8,}$'
+        sopiikopw = re.match(sopiva_password, password)
+
+        if not sopiikopw:
+            raise UserInputError("Not a valid password.")
 
 
+
+ 
 user_service = UserService()
