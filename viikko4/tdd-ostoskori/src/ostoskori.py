@@ -10,7 +10,12 @@ class Ostoskori:
         # kertoo korissa olevien tavaroiden lukumäärän
         # eli jos koriin lisätty 2 kpl tuotetta "maito", tulee metodin palauttaa 2 
         # samoin jos korissa on 1 kpl tuotetta "maito" ja 1 kpl tuotetta "juusto", tulee metodin palauttaa 2 
-        return len(self.ostos_oliot_listalla)
+        
+        tavaroiden_lukumaara_korissa = 0
+        for x in self.ostos_oliot_listalla:
+            tavaroiden_lukumaara_korissa = tavaroiden_lukumaara_korissa + x._lukumaara
+
+        return tavaroiden_lukumaara_korissa
         
     def hinta(self):
         # kertoo korissa olevien ostosten yhteenlasketun hinnan
@@ -22,12 +27,23 @@ class Ostoskori:
         return korin_hinta
 
     def lisaa_tuote(self, lisattava: Tuote):
-        ostos = Ostos(lisattava)
 
-        if ostos not in self.ostos_oliot_listalla:
-            self.ostos_oliot_listalla.append(ostos)
+        if any(x.tuote == lisattava for x in self.ostos_oliot_listalla):
+
+            indeksi = -1
+
+            # Etsitään indeksi, jossa on ostos, johon kuuluu haluttu tuote
+            for x in self.ostos_oliot_listalla:
+                indeksi = indeksi + 1
+                if x.tuote == lisattava:
+                    break
+
+            # Muutetaan kyseisessä indeksissä olevan ostoksen lukumäärää.
+            self.ostos_oliot_listalla[indeksi].muuta_lukumaaraa(1)
+
         else:
-            ostos.muuta_lukumaara(1)
+            ostos = Ostos(lisattava)
+            self.ostos_oliot_listalla.append(ostos)
 
 
     def poista_tuote(self, poistettava: Tuote):
