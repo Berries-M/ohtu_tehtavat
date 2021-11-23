@@ -48,7 +48,16 @@ class Ostoskori:
 
     def poista_tuote(self, poistettava: Tuote):
         # poistaa tuotteen
-        pass
+        indeksi = -1
+
+        # Etsitään indeksi, jossa poistettava on 
+        for x in self.ostos_oliot_listalla:
+                indeksi = indeksi + 1
+                if x.tuote == poistettava:
+                    break
+
+        # Muutetaan kyseisessä indeksissä olevan ostoksen lukumäärää.
+        self.ostos_oliot_listalla[indeksi].muuta_lukumaaraa(-1)
 
     def tyhjenna(self):
         pass

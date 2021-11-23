@@ -71,7 +71,7 @@ class TestOstoskori(unittest.TestCase):
         self.assertEqual(ostos_tuote_nimi, "Juusto")
         self.assertEqual(ostos_tuote_maara, 1)
     
-    # Tehtävä 11 ja 12
+    # Tehtävä 11, 12 ja 13
     def test_kahden_saman_tuotteen_lisaamisen_jalkeen_korissa_yksi_ostosolio_jolla_oikea_tuotteen_nimi_ja_maara(self):
          # testaa täällä, että palautetun listan ensimmäinen ostos on halutunkaltainen.
         maito = Tuote("Maito", 3)
@@ -82,4 +82,7 @@ class TestOstoskori(unittest.TestCase):
         ostos_tuote_maara = self.kori.ostokset()[0]._lukumaara
         self.assertEqual(ostos_tuote_nimi, "Maito")
         self.assertEqual(ostos_tuote_maara, 2)
-    
+        self.kori.poista_tuote(maito)
+        ostos_tuote_maara_uusi = self.kori.ostokset()[0]._lukumaara
+        self.assertEqual(ostos_tuote_maara_uusi, 1)
+   
