@@ -41,7 +41,9 @@ class Ostoskori:
     def ostokset(self):
         # palauttaa listan jossa on korissa olevat ostos-oliot
         # kukin ostos-olio siis kertoo mistä tuotteesta on kyse JA kuinka monta kappaletta kyseistä tuotetta korissa on
+        lista = []
         if len(self.ostokset) == 0:
-            return 0
+            return lista
 
-        return self.ostokset
+        else:
+            return self.ostokset
