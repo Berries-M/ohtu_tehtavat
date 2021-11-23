@@ -10,7 +10,6 @@ class Ostoskori:
         # kertoo korissa olevien tavaroiden lukumäärän
         # eli jos koriin lisätty 2 kpl tuotetta "maito", tulee metodin palauttaa 2 
         # samoin jos korissa on 1 kpl tuotetta "maito" ja 1 kpl tuotetta "juusto", tulee metodin palauttaa 2 
-        
         tavaroiden_lukumaara_korissa = 0
         for x in self.ostos_oliot_listalla:
             tavaroiden_lukumaara_korissa = tavaroiden_lukumaara_korissa + x._lukumaara
@@ -59,7 +58,7 @@ class Ostoskori:
         # Muutetaan kyseisessä indeksissä olevan ostoksen lukumäärää.
         self.ostos_oliot_listalla[indeksi].muuta_lukumaaraa(-1)
 
-        # Poisteaan koko tuote ostostlistalta, jos ei jäljellä.
+        # Poisteaan koko tuote ostoslistalta, jos ei jäljellä.
         if self.ostos_oliot_listalla[indeksi].lukumaara() == 0:
             del self.ostos_oliot_listalla[indeksi]
             
