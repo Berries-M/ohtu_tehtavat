@@ -59,16 +59,19 @@ class Ostoskori:
         # Muutetaan kyseisessä indeksissä olevan ostoksen lukumäärää.
         self.ostos_oliot_listalla[indeksi].muuta_lukumaaraa(-1)
 
+        # Poisteaan koko tuote ostostlistalta, jos ei jäljellä.
+        if self.ostos_oliot_listalla[indeksi].lukumaara() == 0:
+            del self.ostos_oliot_listalla[indeksi]
+            
     def tyhjenna(self):
-        pass
         # tyhjentää ostoskorin
+        self.ostos_oliot_listalla.clear()
 
     def ostokset(self):
         # palauttaa listan jossa on korissa olevat ostos-oliot
         # kukin ostos-olio siis kertoo mistä tuotteesta on kyse JA kuinka monta kappaletta kyseistä tuotetta korissa on
-        lista = []
         if len(self.ostos_oliot_listalla) == 0:
-            return lista
+            return []
 
         else:
             return self.ostos_oliot_listalla
