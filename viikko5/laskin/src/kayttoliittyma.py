@@ -3,13 +3,6 @@ from enum import Enum
 from tkinter import ttk, constants, StringVar
 from sovelluslogiikka import Sovelluslogiikka
 
-#Summa on luokka ja Summa(...) luokan olio. Tuossa self._kommenot = { Komento.SUMMA: Summa(...), ... } oliot laitetaan dictionaryyn
-#voit siis tehdä esim. olio = self._komennot[Komento.SUMMA] ja olio.suorita()
-
-#Komennoilla on nyt siis metodi suorita ja ne saavat konstruktorin kautta Sovelluslogiikka-olion ja funktion, 
-#jota kutsumalla syötteen voi lukea.
-
-
 class Komento(Enum):
     SUMMA = 1
     EROTUS = 2
@@ -26,10 +19,8 @@ class Summa:
         # kutsutaan käyttöliittymän metodia
         self.arvo = self.luku_komento()
         arvo = int(self.arvo)
-        #print(arvo)
         # kutsutaan sovelluslogiikan metodia
         tulos = self.sovelluslogiikka.plus(arvo)
-        #print(tulos)
     
 class Erotus:
     def __init__(self, sovelluslogiikka, kayttoliittyma_lue_syote):
@@ -41,16 +32,12 @@ class Erotus:
         # kutsutaan käyttöliittymän metodia
         self.arvo = self.luku_komento()
         arvo = int(self.arvo)
-        #print(arvo)
         # kutsutaan sovelluslogiikan metodia
         tulos = self.sovelluslogiikka.miinus(arvo)
-        #print(tulos)
 
 class Nollaus:
-    def __init__(self, sovelluslogiikka, kayttoliittyma_lue_syote):
+    def __init__(self, sovelluslogiikka):
         self.sovelluslogiikka = sovelluslogiikka
-        self.luku_komento = kayttoliittyma_lue_syote
-        self.arvo = 0
 
     def suorita(self):
         # kutsutaan sovelluslogiikan metodia
@@ -65,16 +52,26 @@ class Kayttoliittyma:
         self.komennot = {
             Komento.SUMMA: Summa(sovelluslogiikka, self._lue_syote),
             Komento.EROTUS: Erotus(sovelluslogiikka, self._lue_syote),
-            Komento.NOLLAUS: Nollaus(sovelluslogiikka, self._lue_syote)
-            #Komento.KUMOA: Kumoa(sovelluslogiikka, self._lue_syote)
+            Komento.NOLLAUS: Nollaus(sovelluslogiikka),
+            Komento.KUMOA: self._kumoa()
         }
 
+    # Tehty yhteinen metodi Summa, Erotus ja Nollaus-luokille, ei omia
+    def _kumoa(self):
+        self._sovelluslogiikka.kumoa()
+    
     def _lue_syote(self):
         return self._syote_kentta.get()
 
     def _suorita_komento(self, komento):
-        komento_olio = self.komennot[komento]
-        komento_olio.suorita()
+        try:
+            komento_olio = self.komennot[komento]
+            komento_olio.suorita()
+
+        # Jos olioa ei voi luoda, kyseessä kumoaminen.
+        except:
+            self._kumoa()
+
         self._kumoa_painike["state"] = constants.NORMAL
 
         if self._sovelluslogiikka.tulos == 0:
@@ -84,7 +81,8 @@ class Kayttoliittyma:
 
         self._syote_kentta.delete(0, constants.END)
         self._tulos_var.set(self._sovelluslogiikka.tulos)
-    
+        
+       
     def kaynnista(self):
         self._tulos_var = StringVar()
         self._tulos_var.set(self._sovelluslogiikka.tulos)
