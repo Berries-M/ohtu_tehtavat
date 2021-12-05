@@ -1,2 +1,3 @@
 Tämä on uuteen haaraan tehty tiedosto.
 Tämä on muutos uuteen haaraan.
+Tämä on toinen muutos uuteen haaraan.
