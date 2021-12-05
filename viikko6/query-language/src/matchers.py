@@ -1,3 +1,4 @@
+# Kaikki ehdot toteuduttava
 class And:
     def __init__(self, *matchers):
         self._matchers = matchers
@@ -9,7 +10,7 @@ class And:
         
         return True
 
-# Not, parametrina olevan ehdon negaatio (eli edellisen kohdan negaatio)
+# Not, parametrina olevien ehtojen negaatio (eli edellisen kohdan negaatio)
 class Not:
     def __init__(self, *matchers):
         self._matchers = matchers
@@ -76,3 +77,4 @@ class Or:
                 break
 
         return is_found
+        
