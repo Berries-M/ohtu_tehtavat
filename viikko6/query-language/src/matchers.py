@@ -61,3 +61,18 @@ class HasFewerThan:
 
         #Huom! vain pienempi
         return player_value < self._value
+
+class Or:
+    def __init__(self, *matchers):
+        self._matchers = matchers
+
+    def matches(self, player):
+        is_found = False
+
+        # Jos mikä vaan ehto totetuuu
+        for matcher in self._matchers:
+            if matcher.matches(player):
+                is_found = True
+                break
+
+        return is_found
