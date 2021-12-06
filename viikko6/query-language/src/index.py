@@ -8,34 +8,55 @@ def main():
     reader = PlayerReader(url)
     stats = Statistics(reader)
 
-    #Tehtävä 4, ehdot annetaan oliolle
+    #TEHTÄVÄ 4, ehdot annetaan oliolle
     query = QueryBuilder()
-    matcher_8 = query.build()
-
+   
+    #matcher_8 = query.build()
     #for player in stats.matches(matcher_8):
         #print(player)
 
-    matcher_9 = (
-         query
-         .playsIn("NYR")
-         .build()
-    )
-
+    #matcher_9 = (
+         #query
+         #.playsIn("NYR")
+         #.build()
+    #)
     #for player in stats.matches(matcher_9):
         #print(player)
 
-    matcher_10= (
-      query  
-        .playsIn("NYR")  
-        .hasAtLeast(5, "goals")  
-        .hasFewerThan(10, "goals")  
-        .build() 
+    #matcher_10= (
+      #query  
+        #.playsIn("NYR")  
+        #.hasAtLeast(5, "goals")  
+        #.hasFewerThan(10, "goals")  
+        #.build() 
+    #)
+    #for player in stats.matches(matcher_10):
+        #print(player)
+
+    # TEHTÄVÄ 5, jompi kumpi pitää toteutua
+    m1 = (
+    query
+    .playsIn("PHI")
+    .hasAtLeast(10, "assists")
+    .hasFewerThan(5, "goals")
+    .build()
     )
 
-    for player in stats.matches(matcher_10):
+    query_2 = QueryBuilder()
+
+    m2 = (
+    query_2
+    .playsIn("EDM")
+    .hasAtLeast(40, "points")
+    .build()
+    )
+
+    matcher_11 = query.oneOf(m1, m2).build()
+
+    for player in stats.matches(matcher_11):
         print(player)
 
-
+    # TEHTÄVÄ 3
     matcher = And(
         HasAtLeast(5, "goals"),
         HasAtLeast(5, "assists"),

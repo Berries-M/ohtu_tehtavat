@@ -25,3 +25,8 @@ class QueryBuilder:
         self._matchers = And(HasFewerThan(value, attr), self._matchers)
         #Huom! Tämä palautus, jotta voi tehdä uusia ehtoja
         return self
+    
+    # 2 eri vaatimukset halutulle pelaajalle, molemmat mukaan
+    def oneOf(self, m1, m2):
+        self._matchers = Or(m1, m2)
+        return self
