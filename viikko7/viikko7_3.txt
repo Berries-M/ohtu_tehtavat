@@ -1,2 +1,3 @@
 Tämä on haaraan 3 tehty tiedosto. Main on stashissa.
 Tähän on tehty 3 haarassa yksi muutos.
+Tähän on tehty 3 haarasssa toinen muutos lisäksi.
